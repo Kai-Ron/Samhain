@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float cameraSensitivity;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float gravity;
+    [SerializeField] private float interactRange;
     private Vector3 rotation;
     private float currentSpeed;
     private float yVelocity;
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
         lClick = inputActions.Player.Attack;
         lClick.Enable();
+        lClick.performed += Interact;
 
         scroll = inputActions.Player.Scroll;
         scroll.Enable();
@@ -95,7 +97,6 @@ public class PlayerController : MonoBehaviour
             case STATE.NO_CONTROL:
                 break;
         }
-
     }
 
     void Movement()
@@ -138,6 +139,19 @@ public class PlayerController : MonoBehaviour
         {
             float currentGravMultiplier = Mathf.Lerp(gravityMultiplier, 0.1f, 0.025f);
             yVelocity += gravity * currentGravMultiplier * Time.deltaTime;
+        }
+    }
+
+    private void Interact(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.TransformDirection(Vector3.forward), out hit, interactRange))
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.TryGetComponent<Interactable>(out Interactable interactable))
+            {
+                interactable.Use();
+            }
         }
     }
 }

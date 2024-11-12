@@ -3,7 +3,7 @@ using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
-    
+    public static Dialogue instance;
     // this script is attached to the Game Manager object in the scene 
     // when the player interacts with a talking character, it should look for a "CharacterDialogue" script on that object and populate the UI with 
     // that objects assigned text 
@@ -16,6 +16,18 @@ public class Dialogue : MonoBehaviour
     private string[] currentDialogueLines; // Holds the active character's dialogue
     private int currentLineIndex = 0;      // Tracks the current line being displayed
     private bool isTalking = false;        // Tracks if the dialogue is active or not
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
