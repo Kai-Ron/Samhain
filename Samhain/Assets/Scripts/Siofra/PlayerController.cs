@@ -22,12 +22,15 @@ public class PlayerController : MonoBehaviour
     private InputAction lClick;
     private InputAction rClick;
     private InputAction scroll;
+    private InputAction space;
 
     private Vector3 direction;
 
     [SerializeField] private float itemRotationSpeed;
     [HideInInspector] public GameObject heldItem;
     Vector3 itemRotation = new Vector3();
+
+
 
     public enum STATE {
         NO_CONTROL,
@@ -61,6 +64,10 @@ public class PlayerController : MonoBehaviour
         look = inputActions.Player.Look;
         look.Enable();
 
+        space = inputActions.Player.Jump;
+        space.Enable();
+        space.performed += WorldChange;
+
         lClick = inputActions.Player.Attack;
         lClick.Enable();
         lClick.performed += Interact;
@@ -76,6 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         move.Disable();
         look.Disable();
+        space.Disable();
         lClick.Disable();
         scroll.Disable();
     }
@@ -192,5 +200,10 @@ public class PlayerController : MonoBehaviour
         itemRotation.y += input.y;
 
         heldItem.transform.rotation = Quaternion.Euler(itemRotation.y, itemRotation.x, 0);
+    }
+
+    private void WorldChange(InputAction.CallbackContext context)
+    {
+        SpaceManager.instance.ChangeState();
     }
 }
