@@ -1,21 +1,23 @@
 using UnityEngine;
-using TMPro;  
+using TMPro;
+using System.Collections;
 
 public class Dialogue : MonoBehaviour
 {
     public static Dialogue instance;
-    // this script is attached to the Game Manager object in the scene 
-    // when the player interacts with a talking character, it should look for a "CharacterDialogue" script on that object and populate the UI with 
-    // that objects assigned text 
-    [TextArea(3, 10)]
-    public string[] defaultDialogueLines; // Default lines needed for inspector [ignore]
 
-    public TextMeshProUGUI dialogueText;  // Reference to the textmeshpro for the dialogue text 
-    public GameObject dialogueUI;         // Dialogue box UI panel (can hide/show)
+    [TextArea(3, 10)]
+    public string[] defaultDialogueLines;
+
+    public TextMeshProUGUI dialogueText;
+    public GameObject dialogueUI;
     
-    private string[] currentDialogueLines; // Holds the active character's dialogue
-    private int currentLineIndex = 0;      // Tracks the current line being displayed
-    private bool isTalking = false;        // Tracks if the dialogue is active or not
+    private string[] currentDialogueLines;
+    private int currentLineIndex = 0;
+    private bool isTalking = false;
+    private Coroutine typingCoroutine;
+    
+    public float typingSpeed = 0.05f; // Speed of typewriter effect
 
     private void Awake()
     {
@@ -33,55 +35,81 @@ public class Dialogue : MonoBehaviour
     {
         if (dialogueUI != null)
         {
-            dialogueUI.SetActive(false);  // Hide dialogue UI initially
+            dialogueUI.SetActive(false);
         }
     }
 
     void Update()
     {
-        // If dialogue is active and the player presses space, show the next line
         if (isTalking && Input.GetKeyDown(KeyCode.Space))
         {
-            DisplayNextLine();
+            if (typingCoroutine == null) // If typing is done, show the next line
+            {
+                DisplayNextLine();
+            }
+            else // If typing is still ongoing, finish it immediately
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+                dialogueText.maxVisibleCharacters = dialogueText.text.Length;
+            }
         }
     }
 
     // Method to start dialogue from a specific character
     public void StartDialogue(string[] newDialogueLines)
     {
-        if (newDialogueLines.Length > 0)
-        {
-            currentDialogueLines = newDialogueLines;  // Set the character's lines
-            isTalking = true;
-            currentLineIndex = 0;                     // Reset line index
-            dialogueUI.SetActive(true);               // Show dialogue UI
-            DisplayNextLine();                        // Display the first line
-        }
+        
+            if (newDialogueLines.Length > 0)
+            {
+                currentDialogueLines = newDialogueLines;
+                isTalking = true;
+                currentLineIndex = 0;
+                dialogueUI.SetActive(true);
+                DisplayNextLine();
+            }
+            
     }
-
-    // Method to display the next line in the dialogue
+    
     void DisplayNextLine()
     {
         if (currentLineIndex < currentDialogueLines.Length)
         {
-            // Display the current line and increment index
+           
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+            }
+
             dialogueText.text = currentDialogueLines[currentLineIndex];
+            dialogueText.maxVisibleCharacters = 0; 
+            typingCoroutine = StartCoroutine(RevealCharacters());
             currentLineIndex++;
         }
         else
         {
-            // End dialogue if all lines are shown
             EndDialogue();
         }
+    }
+
+    // Coroutine to reveal characters one by one
+    private IEnumerator RevealCharacters()
+    {
+        for (int i = 0; i <= dialogueText.text.Length; i++)
+        {
+            dialogueText.maxVisibleCharacters = i;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+        typingCoroutine = null; // Reset coroutine flag after typing is done
     }
 
     // Method to end the dialogue
     void EndDialogue()
     {
         isTalking = false;
-        dialogueUI.SetActive(false);  // Hide dialogue UI
-        dialogueText.text = "";       // Clear text box
-        currentDialogueLines = new string[0];  // Clear dialogue lines
+        dialogueUI.SetActive(false);
+        dialogueText.text = "";
+        currentDialogueLines = new string[0];
     }
 
     // When a character triggers this dialogue, it should call this method
@@ -89,7 +117,4 @@ public class Dialogue : MonoBehaviour
     {
         StartDialogue(characterDialogueLines);
     }
-    
 }
-
-
