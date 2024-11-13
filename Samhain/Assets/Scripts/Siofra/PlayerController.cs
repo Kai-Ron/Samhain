@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float gravity;
     [SerializeField] private float interactRange;
+    private bool isRealmShifted;
     private Vector3 rotation;
     private float currentSpeed;
     private float yVelocity;
@@ -111,6 +112,11 @@ public class PlayerController : MonoBehaviour
 
                 break;
         }
+        
+        if (Input.GetKeyDown("SPACE"))
+        {
+            RealmShift(); //toggle realms
+        }
 
     }
 
@@ -193,4 +199,21 @@ public class PlayerController : MonoBehaviour
 
         heldItem.transform.rotation = Quaternion.Euler(itemRotation.y, itemRotation.x, 0);
     }
+
+    private void RealmShift()
+    {
+        if (!isRealmShifted)
+        {
+            // shift realm to spirit world
+            isRealmShifted = true;
+        }
+
+        else
+        {
+            // shift realm to Human world
+            isRealmShifted = false;
+        }
+    }
+
+
 }
