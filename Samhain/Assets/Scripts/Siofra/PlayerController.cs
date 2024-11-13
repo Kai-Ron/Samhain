@@ -20,13 +20,19 @@ public class PlayerController : MonoBehaviour
     private InputAction move;
     private InputAction look;
     private InputAction lClick;
+    private InputAction rClick;
     private InputAction scroll;
 
     private Vector3 direction;
 
+    [SerializeField] private float itemRotationSpeed;
+    [HideInInspector] public GameObject heldItem;
+    Vector3 itemRotation = new Vector3();
+
     public enum STATE {
         NO_CONTROL,
         HAS_CONTROL,
+        HOLDING_ITEM,
     }
 
     private STATE currentState;
@@ -59,6 +65,9 @@ public class PlayerController : MonoBehaviour
         lClick.Enable();
         lClick.performed += Interact;
 
+        rClick = inputActions.Player.Zoom;
+        rClick.Enable();
+
         scroll = inputActions.Player.Scroll;
         scroll.Enable();
     }
@@ -76,11 +85,30 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case STATE.HAS_CONTROL:
+
                 Movement();
                 ApplyMovement();
                 Gravity();
+
+                // State Changes
+                if (heldItem != null)
+                {
+                    currentState = STATE.HOLDING_ITEM;
+                }
+
                 break;
             case STATE.NO_CONTROL:
+                break;
+            case STATE.HOLDING_ITEM:
+                ItemMovement();
+
+                if (rClick.triggered)
+                {
+                    heldItem.GetComponent<Item>().ReturnToPosition();
+                    heldItem = null;
+                    currentState = STATE.HAS_CONTROL;
+                }
+
                 break;
         }
 
@@ -95,6 +123,8 @@ public class PlayerController : MonoBehaviour
                 Rotation();
                 break;
             case STATE.NO_CONTROL:
+                break;
+            case STATE.HOLDING_ITEM:
                 break;
         }
     }
@@ -114,7 +144,6 @@ public class PlayerController : MonoBehaviour
     private void Rotation()
     {
         Vector2 lookInput = look.ReadValue<Vector2>();
-
         // Rotates along x axis
         rotation.x -= lookInput.y * cameraSensitivity;
         rotation.x = Mathf.Clamp(rotation.x, -85f, 85f);
@@ -153,5 +182,15 @@ public class PlayerController : MonoBehaviour
                 interactable.Use();
             }
         }
+    }
+
+    private void ItemMovement()
+    {
+        Vector2 input = move.ReadValue<Vector2>();
+
+        itemRotation.x -= input.x;
+        itemRotation.y += input.y;
+
+        heldItem.transform.rotation = Quaternion.Euler(itemRotation.y, itemRotation.x, 0);
     }
 }
