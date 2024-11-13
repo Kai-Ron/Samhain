@@ -59,14 +59,16 @@ public class Dialogue : MonoBehaviour
     // Method to start dialogue from a specific character
     public void StartDialogue(string[] newDialogueLines)
     {
-        if (newDialogueLines.Length > 0)
-        {
-            currentDialogueLines = newDialogueLines;
-            isTalking = true;
-            currentLineIndex = 0;
-            dialogueUI.SetActive(true);
-            DisplayNextLine();
-        }
+        
+            if (newDialogueLines.Length > 0)
+            {
+                currentDialogueLines = newDialogueLines;
+                isTalking = true;
+                currentLineIndex = 0;
+                dialogueUI.SetActive(true);
+                DisplayNextLine();
+            }
+            
     }
     
     void DisplayNextLine()

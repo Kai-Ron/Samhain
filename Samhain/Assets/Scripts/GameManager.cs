@@ -23,19 +23,31 @@ public class GameManager : MonoBehaviour
                 break;
             }
 
-                case 1 :
+            case 1:
             {
                 Debug.Log("First puzzle complete, trigger setup of next puzzle");
-                
-                string[] ghostOneDialogue = {"Oh...you can SEE ME??", "In that case, we must not waste a second.", "You see, I have been a spirit for what feels like an age, and I have forgotten my own name...","BUT! I had my initials engraved on a pipe I used to smoke long ago.", "That very pipe may still be in this house! Please, find my old pipe and return to me when you know my initials."};
-                ghostOne.SetActive(true);
+
+                string[] ghostOneDialogue =
+                {
+                    "Oh...you can SEE ME??", "In that case, we must not waste a second.",
+                    "You see, I have been a spirit for what feels like an age, and I have forgotten my own name...",
+                    "BUT! I had my initials engraved on a pipe I used to smoke long ago.",
+                    "That very pipe may still be in this house! Please, find my old pipe and return to me when you know my initials."
+                };
+                ghostOne = GameObject.FindGameObjectWithTag("GhostOne");
                 ghostOne.GetComponent<CharacterDialogue>().SetDialogueLines(ghostOneDialogue);
                 break;
             }
-                
+
             case 2:
             {
                 Debug.Log("Second Puzzle complete, trigger setup of next puzzle");
+                string[] ghostOneCompletedPuzzleLines =
+                {
+                    "Oh! Back so soon?", "You found my pipe already?", "Excellent! W.C you say...", "...", ".....", "........",
+                    "That doesn't ring a bell.", "...", "Oh Well! I have always wanted to try a new name for myself!", "Thank you for your help."
+                };
+                ghostOne.GetComponent<CharacterDialogue>().SetDialogueLines(ghostOneCompletedPuzzleLines);
                 break;
             }
 
@@ -44,8 +56,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Third puzzle complete, trigger game completed");
                 break;
             }
-
-                    return;
+                return;
         }
     }
 
