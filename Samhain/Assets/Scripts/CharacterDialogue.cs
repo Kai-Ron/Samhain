@@ -10,6 +10,12 @@ public class CharacterDialogue : Interactable
     {
         Dialogue.instance.TriggerDialogue(characterDialogueLines);
     }
+    
+    // Method to replace the entire set of dialogue lines
+    public void SetDialogueLines(string[] newDialogueLines)
+    {
+        characterDialogueLines = newDialogueLines;
+    }
 
     
 }
