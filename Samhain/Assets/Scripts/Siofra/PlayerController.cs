@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         
-        if (Input.GetKeyDown("SPACE"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             RealmShift(); //toggle realms
         }
@@ -205,12 +205,14 @@ public class PlayerController : MonoBehaviour
         if (!isRealmShifted)
         {
             // shift realm to spirit world
+            Debug.Log(isRealmShifted + " Spirit World");
             isRealmShifted = true;
         }
 
         else
         {
             // shift realm to Human world
+            Debug.Log(isRealmShifted + " Human World");
             isRealmShifted = false;
         }
     }
