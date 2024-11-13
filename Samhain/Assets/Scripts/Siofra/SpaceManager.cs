@@ -16,7 +16,8 @@ public class SpaceManager : MonoBehaviour
 
     private void Start()
     {
-
+        realWorldItems.AddRange(GameObject.FindGameObjectsWithTag("Real"));
+        ghostWorldItems.AddRange(GameObject.FindGameObjectsWithTag("Ghost"));
     }
 
     private void Awake()
@@ -37,8 +38,29 @@ public class SpaceManager : MonoBehaviour
         {
             // Change to grey
             isSpirit = false;
+
+            for (int i = 0; i < realWorldItems.Count; i++)
+            {
+                realWorldItems[i].gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < ghostWorldItems.Count; i++)
+            {
+                ghostWorldItems[i].gameObject.SetActive(false);
+            }
+
             StartCoroutine(ShiftWorldDown());
             return;
+        }
+
+        for (int i = 0; i < realWorldItems.Count; i++)
+        {
+            realWorldItems[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < ghostWorldItems.Count; i++)
+        {
+            ghostWorldItems[i].gameObject.SetActive(true);
         }
 
         isSpirit = true;
@@ -53,10 +75,9 @@ public class SpaceManager : MonoBehaviour
 
         while (currentTime <= endTime)
         {
+            // Change Alpha of objects here too
             globalVolume.weight = 1 - (endTime - currentTime);
-
             currentTime += Time.deltaTime;
-
             yield return null;
         }
     }
@@ -68,10 +89,9 @@ public class SpaceManager : MonoBehaviour
 
         while (currentTime <= endTime)
         {
+            // Change Alpha of objects here too
             currentTime += Time.deltaTime;
-
             globalVolume.weight = endTime - currentTime;
-
             yield return null;
         }
     }
