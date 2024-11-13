@@ -30,15 +30,17 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public GameObject heldItem;
     Vector3 itemRotation = new Vector3();
 
+    [HideInInspector] public bool isRealmShifted;
 
 
     public enum STATE {
         NO_CONTROL,
         HAS_CONTROL,
         HOLDING_ITEM,
+        TYPING,
     }
 
-    private STATE currentState;
+    public STATE currentState;
 
     void Start()
     {
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
         look.Disable();
         space.Disable();
         lClick.Disable();
+        rClick.Disable();
         scroll.Disable();
     }
 
@@ -118,6 +121,16 @@ public class PlayerController : MonoBehaviour
                 }
 
                 break;
+            case STATE.TYPING:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                if (rClick.triggered)
+                {
+                    currentState = STATE.HAS_CONTROL;
+                }
+
+                break;
         }
 
     }
@@ -133,6 +146,8 @@ public class PlayerController : MonoBehaviour
             case STATE.NO_CONTROL:
                 break;
             case STATE.HOLDING_ITEM:
+                break;
+            case STATE.TYPING:
                 break;
         }
     }
@@ -205,5 +220,22 @@ public class PlayerController : MonoBehaviour
     private void WorldChange(InputAction.CallbackContext context)
     {
         SpaceManager.instance.ChangeState();
+    }
+
+    private void RealmShift()
+    {
+        if (!isRealmShifted)
+        {
+            // shift realm to spirit world
+            Debug.Log(isRealmShifted + " Spirit World");
+            isRealmShifted = true;
+        }
+
+        else
+        {
+            // shift realm to Human world
+            Debug.Log(isRealmShifted + " Human World");
+            isRealmShifted = false;
+        }
     }
 }
