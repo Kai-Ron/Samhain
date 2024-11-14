@@ -394,8 +394,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279408893
-  m_fontColor: {r: 0.990566, g: 0.594272, b: 0.07008721, a: 1}
+    rgba: 4278237183
+  m_fontColor: {r: 1, g: 0.7170844, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1855,12 +1855,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "HOW TO PLAY TEXT GOES HERE\n\nYOU READ THIS TEXT TO LEARN HOW TO PLAY
-    \n\nALL THE INSTRUCTIONS ARE IN THIS TEXT\n\nWHEN THE PLAYER HAS READ ALL THIS
-    TEXT AND KNOWS HOW TO PLAY\n\nTHEY PRESS THE BACK BUTTON TO GO BACK"
+  m_text: 'Explore the same space in two different realms
+
+    and free the stubborn
+    spirits who are haunting your new home!
+
+
+    CONTROLS:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 81f41fc1810945b4cb76dce128aae98f, type: 2}
-  m_sharedMaterial: {fileID: -4284094155598426116, guid: 81f41fc1810945b4cb76dce128aae98f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2242feebfd1fbb748919a336dd3405c0, type: 2}
+  m_sharedMaterial: {fileID: 8476662930099428547, guid: 2242feebfd1fbb748919a336dd3405c0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1891,7 +1895,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
