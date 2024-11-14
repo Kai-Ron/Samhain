@@ -1,6 +1,8 @@
 using System.Data.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -73,5 +75,10 @@ public class GameManager : MonoBehaviour
         {
             TriggerNextPuzzle();
         }
+    }
+
+    public void ChangeScene(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
     }
 }
