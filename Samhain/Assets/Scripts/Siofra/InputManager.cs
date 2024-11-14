@@ -5,8 +5,10 @@ public class InputManager : MonoBehaviour
     public static InputManager instance;
     private PlayerController playerScript;
     public string lastText;
+    public string currentName;
 
     public GameObject inputFieldObject;
+    public CharacterDialogue currentCharacter;
 
     public enum INPUT_STATE
     {
@@ -44,6 +46,14 @@ public class InputManager : MonoBehaviour
     {
         currentState = INPUT_STATE.NOT_TYPING;
         playerScript.currentState = PlayerController.STATE.HAS_CONTROL;
+        if (currentName == lastText)
+        {
+            currentCharacter.CorrectName(currentCharacter.correctDialogueLines);
+        }
+        else
+        {
+            currentCharacter.IncorrectName(currentCharacter.incorrectDialogueLines);
+        }
         inputFieldObject.SetActive(false);
     }
 }

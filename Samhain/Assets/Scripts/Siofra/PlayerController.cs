@@ -96,7 +96,8 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case STATE.HAS_CONTROL:
-
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Movement();
                 ApplyMovement();
                 Gravity();
@@ -219,7 +220,10 @@ public class PlayerController : MonoBehaviour
 
     private void WorldChange(InputAction.CallbackContext context)
     {
-        SpaceManager.instance.ChangeState();
+        if (currentState == STATE.HAS_CONTROL)
+        {
+            SpaceManager.instance.ChangeState();
+        }
     }
 
     private void RealmShift()
