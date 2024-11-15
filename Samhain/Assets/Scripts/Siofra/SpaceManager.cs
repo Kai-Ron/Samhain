@@ -11,13 +11,29 @@ public class SpaceManager : MonoBehaviour
     private bool isSpirit;
     private float timeToChange = 1.0f;
 
-    List<GameObject> realWorldItems = new List<GameObject>();
-    List<GameObject> ghostWorldItems = new List<GameObject>();
+    List<Collider> realWorldColliders = new List<Collider>();
+    List<Collider> ghostWorldColliders = new List<Collider>();
+
+    public Material realWorldMaterial;
+    public Material ghostWorldMaterial;
 
     private void Start()
     {
-        realWorldItems.AddRange(GameObject.FindGameObjectsWithTag("Real"));
-        ghostWorldItems.AddRange(GameObject.FindGameObjectsWithTag("Ghost"));
+        List<GameObject> realWorldObjects = new List<GameObject>();
+        List<GameObject> ghostWorldObjects = new List<GameObject>();
+
+        realWorldObjects.AddRange(GameObject.FindGameObjectsWithTag("Real"));
+        ghostWorldObjects.AddRange(GameObject.FindGameObjectsWithTag("Ghost"));
+
+        foreach (GameObject item in realWorldObjects)
+        {
+            realWorldColliders.Add(item.GetComponent<Collider>());
+        }
+
+        foreach (GameObject item in ghostWorldObjects)
+        {
+            ghostWorldColliders.Add(item.GetComponent<Collider>());
+        }
     }
 
     private void Awake()
@@ -39,28 +55,28 @@ public class SpaceManager : MonoBehaviour
             // Change to grey
             isSpirit = false;
 
-            for (int i = 0; i < realWorldItems.Count; i++)
+            for (int i = 0; i < realWorldColliders.Count; i++)
             {
-                realWorldItems[i].gameObject.SetActive(true);
+                realWorldColliders[i].enabled = true;
             }
 
-            for (int i = 0; i < ghostWorldItems.Count; i++)
+            for (int i = 0; i < ghostWorldColliders.Count; i++)
             {
-                ghostWorldItems[i].gameObject.SetActive(false);
+                ghostWorldColliders[i].enabled = false;
             }
 
             StartCoroutine(ShiftWorldDown());
             return;
         }
 
-        for (int i = 0; i < realWorldItems.Count; i++)
+        for (int i = 0; i < realWorldColliders.Count; i++)
         {
-            realWorldItems[i].gameObject.SetActive(false);
+            realWorldColliders[i].enabled = false;
         }
 
-        for (int i = 0; i < ghostWorldItems.Count; i++)
+        for (int i = 0; i < ghostWorldColliders.Count; i++)
         {
-            ghostWorldItems[i].gameObject.SetActive(true);
+            ghostWorldColliders[i].enabled = true;
         }
 
         isSpirit = true;
@@ -76,6 +92,8 @@ public class SpaceManager : MonoBehaviour
         while (currentTime <= endTime)
         {
             // Change Alpha of objects here too
+            realWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
+            ghostWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
             globalVolume.weight = 1 - (endTime - currentTime);
             currentTime += Time.deltaTime;
             yield return null;
@@ -90,6 +108,8 @@ public class SpaceManager : MonoBehaviour
         while (currentTime <= endTime)
         {
             // Change Alpha of objects here too
+            realWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
+            ghostWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
             currentTime += Time.deltaTime;
             globalVolume.weight = endTime - currentTime;
             yield return null;

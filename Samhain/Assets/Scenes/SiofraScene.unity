@@ -503,6 +503,8 @@ MonoBehaviour:
   - You got it right
   incorrectDialogueLines:
   - No that's wrong
+  completeDialogueLines:
+  - You already guessed my name
   characterName: John
   correctlyGuessed: 0
 --- !u!1 &411650818
@@ -1465,7 +1467,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5df6553b54ef13a4c84ccb8f16849add, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1855,7 +1857,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1882,7 +1884,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4e834608e4a50244da279923398b708a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2518,6 +2520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultDialogueLines: []
+  inputField: {fileID: 411650818}
   dialogueText: {fileID: 152339526}
   dialogueUI: {fileID: 691611783}
   typingSpeed: 0.05
@@ -2549,6 +2552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalVolume: {fileID: 1601941447}
+  realWorldMaterial: {fileID: 2100000, guid: 5df6553b54ef13a4c84ccb8f16849add, type: 2}
+  ghostWorldMaterial: {fileID: 2100000, guid: 4e834608e4a50244da279923398b708a, type: 2}
 --- !u!114 &2119755903
 MonoBehaviour:
   m_ObjectHideFlags: 0

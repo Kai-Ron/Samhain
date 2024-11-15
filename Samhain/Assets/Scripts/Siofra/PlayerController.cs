@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
     private void Interact(InputAction.CallbackContext context)
     {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.TransformDirection(Vector3.forward), out hit, interactRange))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.TransformDirection(Vector3.forward), out hit, interactRange) && currentState == STATE.HAS_CONTROL)
         {
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject.TryGetComponent<Interactable>(out Interactable interactable))

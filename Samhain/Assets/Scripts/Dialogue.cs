@@ -9,8 +9,11 @@ public class Dialogue : MonoBehaviour
     [TextArea(3, 10)]
     public string[] defaultDialogueLines;
 
+    public GameObject inputField;
     public TextMeshProUGUI dialogueText;
     public GameObject dialogueUI;
+
+    private PlayerController playerScript;
     
     private string[] currentDialogueLines;
     private int currentLineIndex = 0;
@@ -37,6 +40,8 @@ public class Dialogue : MonoBehaviour
         {
             dialogueUI.SetActive(false);
         }
+
+        playerScript = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
@@ -108,6 +113,10 @@ public class Dialogue : MonoBehaviour
     {
         isTalking = false;
         dialogueUI.SetActive(false);
+        inputField.SetActive(false);
+        playerScript.currentState = PlayerController.STATE.HAS_CONTROL;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         dialogueText.text = "";
         currentDialogueLines = new string[0];
     }
@@ -115,6 +124,7 @@ public class Dialogue : MonoBehaviour
     // When a character triggers this dialogue, it should call this method
     public void TriggerDialogue(string[] characterDialogueLines)
     {
+        playerScript.currentState = PlayerController.STATE.NO_CONTROL;
         StartDialogue(characterDialogueLines);
     }
 }
