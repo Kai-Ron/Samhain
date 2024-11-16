@@ -505,8 +505,12 @@ MonoBehaviour:
   - No that's wrong
   completeDialogueLines:
   - You already guessed my name
+  hintDialogueLines:
+  - It start's with a J
+  - It ends with an N
   characterName: John
   correctlyGuessed: 0
+  hintThreshold: 2
 --- !u!1 &411650818
 GameObject:
   m_ObjectHideFlags: 0

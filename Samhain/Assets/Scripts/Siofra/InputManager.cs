@@ -37,6 +37,7 @@ public class InputManager : MonoBehaviour
 
     public void ActivateInputField()
     {
+        Debug.Log("Activate Input Field");
         currentState = INPUT_STATE.TYPING;
         playerScript.currentState = PlayerController.STATE.TYPING;
         inputFieldObject.SetActive(true);

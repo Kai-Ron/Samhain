@@ -14,9 +14,14 @@ public class CharacterDialogue : Interactable
     [TextArea(3, 10)]
     public string[] completeDialogueLines;  // Holds unique lines for each character
 
+    [TextArea(3, 10)]
+    public string[] hintDialogueLines;  // Holds unique lines for each character
+
     public string characterName;
 
     public bool correctlyGuessed;
+    private int incorrectGuesses;
+    public int hintThreshold;
 
     public override void Use()
     {
@@ -24,8 +29,21 @@ public class CharacterDialogue : Interactable
         {
             InputManager.instance.currentName = characterName;
             InputManager.instance.currentCharacter = GetComponent<CharacterDialogue>();
-            Dialogue.instance.TriggerDialogue(characterDialogueLines);
             InputManager.instance.ActivateInputField();
+            if (incorrectGuesses >= hintThreshold)
+            {
+                string[] singleListItem = new string[1];
+                if (Mathf.Abs(hintThreshold - incorrectGuesses) > hintDialogueLines.Length - 1)
+                {
+                    singleListItem[0] = hintDialogueLines[hintDialogueLines.Length - 1];
+                    Dialogue.instance.TriggerDialogue(singleListItem);
+                    return;
+                }
+                singleListItem[0] = hintDialogueLines[Mathf.Abs(hintThreshold - incorrectGuesses)];
+                Dialogue.instance.TriggerDialogue(singleListItem);
+                return;
+            }
+            Dialogue.instance.TriggerDialogue(characterDialogueLines);
         }
         else
         {
@@ -48,6 +66,7 @@ public class CharacterDialogue : Interactable
 
     public void IncorrectName(string[] newDialogueLines)
     {
+        incorrectGuesses += 1;
         Dialogue.instance.TriggerDialogue(newDialogueLines);
     }
 }

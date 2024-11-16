@@ -110,6 +110,9 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case STATE.NO_CONTROL:
+                Debug.Log("Typing");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
             case STATE.HOLDING_ITEM:
                 ItemMovement();
@@ -123,6 +126,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case STATE.TYPING:
+                Debug.Log("Typing");
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
