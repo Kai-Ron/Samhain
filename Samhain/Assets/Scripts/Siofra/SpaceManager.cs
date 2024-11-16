@@ -63,6 +63,16 @@ public class SpaceManager : MonoBehaviour
                 ghostWorldRenderers.Add(renderer);
             }
         }
+
+        for (int i = 0; i < ghostWorldColliders.Count; i++)
+        {
+            ghostWorldColliders[i].enabled = false;
+        }
+
+        for (int i = 0; i < ghostWorldRenderers.Count; i++)
+        {
+            ghostWorldRenderers[i].enabled = false;
+        }
     }
 
     private void Awake()
