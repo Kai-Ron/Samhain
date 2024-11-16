@@ -127,4 +127,9 @@ public class Dialogue : MonoBehaviour
         playerScript.currentState = PlayerController.STATE.NO_CONTROL;
         StartDialogue(characterDialogueLines);
     }
+
+    public void TriggerItemDialogue(string[] characterDialogueLines)
+    {
+        StartDialogue(characterDialogueLines);
+    }
 }

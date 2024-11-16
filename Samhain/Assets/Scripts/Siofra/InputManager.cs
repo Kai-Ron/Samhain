@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour
     {
         currentState = INPUT_STATE.NOT_TYPING;
         playerScript.currentState = PlayerController.STATE.HAS_CONTROL;
-        if (currentName == lastText)
+        if (currentName.ToLower() == lastText.ToLower())
         {
             currentCharacter.CorrectName(currentCharacter.correctDialogueLines);
         }

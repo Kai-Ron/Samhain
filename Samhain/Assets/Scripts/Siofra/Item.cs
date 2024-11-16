@@ -20,10 +20,10 @@ public class Item : Interactable
 
     public override void Use()
     {
-        Dialogue.instance.TriggerDialogue(itemInformationLines);
+        Dialogue.instance.TriggerItemDialogue(itemInformationLines);
         playerScript.heldItem = gameObject;
 
-        Vector3 newItemPosition = cameraTransform.transform.position + cameraTransform.transform.forward * .5f;
+        Vector3 newItemPosition = cameraTransform.transform.position + cameraTransform.transform.forward * 1.5f;
         transform.position = newItemPosition;
     }
 

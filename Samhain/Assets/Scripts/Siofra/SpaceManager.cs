@@ -14,6 +14,9 @@ public class SpaceManager : MonoBehaviour
     List<Collider> realWorldColliders = new List<Collider>();
     List<Collider> ghostWorldColliders = new List<Collider>();
 
+    List<MeshRenderer> realWorldRenderers = new List<MeshRenderer>();
+    List<MeshRenderer> ghostWorldRenderers = new List<MeshRenderer>();
+
     public Material realWorldMaterial;
     public Material ghostWorldMaterial;
 
@@ -27,12 +30,38 @@ public class SpaceManager : MonoBehaviour
 
         foreach (GameObject item in realWorldObjects)
         {
-            realWorldColliders.Add(item.GetComponent<Collider>());
+            if (item.TryGetComponent<Collider>(out Collider collider))
+            {
+                realWorldColliders.Add(item.GetComponent<Collider>());
+            }
+
+            foreach (Collider colliderComp in item.GetComponentsInChildren<Collider>())
+            {
+                realWorldColliders.Add(colliderComp);
+            }
+
+            foreach (MeshRenderer renderer in item.GetComponentsInChildren<MeshRenderer>())
+            {
+                realWorldRenderers.Add(renderer);
+            }
         }
 
         foreach (GameObject item in ghostWorldObjects)
         {
-            ghostWorldColliders.Add(item.GetComponent<Collider>());
+            if (item.TryGetComponent<Collider>(out Collider collider))
+            {
+                realWorldColliders.Add(item.GetComponent<Collider>());
+            }
+
+            foreach (Collider colliderComp in item.GetComponentsInChildren<Collider>())
+            {
+                ghostWorldColliders.Add(colliderComp);
+            }
+
+            foreach (MeshRenderer renderer in item.GetComponentsInChildren<MeshRenderer>())
+            {
+                ghostWorldRenderers.Add(renderer);
+            }
         }
     }
 
@@ -65,6 +94,16 @@ public class SpaceManager : MonoBehaviour
                 ghostWorldColliders[i].enabled = false;
             }
 
+            for (int i = 0; i < ghostWorldRenderers.Count; i++)
+            {
+                ghostWorldRenderers[i].enabled = false;
+            }
+
+            for (int i = 0; i < realWorldRenderers.Count; i++)
+            {
+                realWorldRenderers[i].enabled = true;
+            }
+
             StartCoroutine(ShiftWorldDown());
             return;
         }
@@ -77,6 +116,16 @@ public class SpaceManager : MonoBehaviour
         for (int i = 0; i < ghostWorldColliders.Count; i++)
         {
             ghostWorldColliders[i].enabled = true;
+        }
+
+        for (int i = 0; i < ghostWorldRenderers.Count; i++)
+        {
+            ghostWorldRenderers[i].enabled = true;
+        }
+
+        for (int i = 0; i < realWorldRenderers.Count; i++)
+        {
+            realWorldRenderers[i].enabled = false;
         }
 
         isSpirit = true;
@@ -92,8 +141,8 @@ public class SpaceManager : MonoBehaviour
         while (currentTime <= endTime)
         {
             // Change Alpha of objects here too
-            realWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
-            ghostWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
+            // realWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
+            // ghostWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
             globalVolume.weight = 1 - (endTime - currentTime);
             currentTime += Time.deltaTime;
             yield return null;
@@ -108,8 +157,8 @@ public class SpaceManager : MonoBehaviour
         while (currentTime <= endTime)
         {
             // Change Alpha of objects here too
-            realWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
-            ghostWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
+            // realWorldMaterial.SetFloat("_Alpha", 1 - (endTime - currentTime));
+            // ghostWorldMaterial.SetFloat("_Alpha", endTime - currentTime);
             currentTime += Time.deltaTime;
             globalVolume.weight = endTime - currentTime;
             yield return null;
