@@ -34,7 +34,7 @@ public class CharacterDialogue : Interactable
     {
         Vector3 dir = playerTransform.position - transform.position;
         dir.y = 0;
-        transform.rotation = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.LookRotation(-dir);
 
         if (!correctlyGuessed)
         {
