@@ -23,7 +23,7 @@ public class Item : Interactable
         Dialogue.instance.TriggerDialogue(itemInformationLines);
         playerScript.heldItem = gameObject;
 
-        Vector3 newItemPosition = cameraTransform.transform.position + cameraTransform.transform.forward * 2f;
+        Vector3 newItemPosition = cameraTransform.transform.position + cameraTransform.transform.forward * .5f;
         transform.position = newItemPosition;
     }
 
