@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &106557750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2809,6 +2809,10 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 152339526}
+    - target: {fileID: 5093675398831395752, guid: 18f3491d69d8382468a0dae5fadcd703, type: 3}
+      propertyPath: itemDialogueIndicator
+      value: 
+      objectReference: {fileID: 106557749}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
