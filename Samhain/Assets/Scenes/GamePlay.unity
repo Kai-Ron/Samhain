@@ -320,6 +320,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: da8dd84b74894544e8ebaa0028ebc108, type: 3}
   m_PrefabInstance: {fileID: 80541569}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &91541524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7202614077902069458, guid: c9b988aafcb1a71418d1cbc9a8e6a88c, type: 3}
+  m_PrefabInstance: {fileID: 499247197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &102421329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2316,8 +2327,10 @@ MonoBehaviour:
   - 'There are many other poor souls trapped here *Cough* *Cough* - unable to leave
     this place. '
   - " \r\rHelp them remember themselves, and they should find rest. "
+  hintDialogueLines: []
   characterName: Louise Griffyn
   correctlyGuessed: 0
+  hintThreshold: 0
 --- !u!1001 &715282926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3125,6 +3138,10 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 499247199}
+    - target: {fileID: 5093675398831395752, guid: 18f3491d69d8382468a0dae5fadcd703, type: 3}
+      propertyPath: progressUIText
+      value: 
+      objectReference: {fileID: 91541524}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

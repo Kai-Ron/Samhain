@@ -12,6 +12,8 @@ public class Dialogue : MonoBehaviour
     public GameObject inputField;
     public TextMeshProUGUI dialogueText;
     public GameObject dialogueUI;
+    public TextMeshProUGUI progressUIText;
+    public int NamesSolved;
 
     private PlayerController playerScript;
     
@@ -131,5 +133,10 @@ public class Dialogue : MonoBehaviour
     public void TriggerItemDialogue(string[] characterDialogueLines)
     {
         StartDialogue(characterDialogueLines);
+    }
+
+    public void UpdateProgressUI()
+    {
+        progressUIText.text = NamesSolved.ToString();
     }
 }

@@ -62,11 +62,14 @@ public class CharacterDialogue : Interactable
     {
         correctlyGuessed = true;
         Dialogue.instance.TriggerDialogue(newDialogueLines);
+        Dialogue.instance.NamesSolved++;
+        Dialogue.instance.UpdateProgressUI();
     }
 
     public void IncorrectName(string[] newDialogueLines)
     {
         incorrectGuesses += 1;
         Dialogue.instance.TriggerDialogue(newDialogueLines);
+   
     }
 }
