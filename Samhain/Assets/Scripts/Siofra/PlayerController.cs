@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
                 if (rClick.triggered)
                 {
                     heldItem.GetComponent<Item>().ReturnToPosition();
+                    Dialogue.instance.itemDialogueIndicator.SetActive(false);
                     heldItem = null;
                     currentState = STATE.HAS_CONTROL;
                 }

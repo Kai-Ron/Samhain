@@ -23,6 +23,7 @@ public class Dialogue : MonoBehaviour
     private Coroutine typingCoroutine;
     
     public float typingSpeed = 0.05f; // Speed of typewriter effect
+    public GameObject itemDialogueIndicator;
 
     private void Awake()
     {
@@ -132,6 +133,7 @@ public class Dialogue : MonoBehaviour
 
     public void TriggerItemDialogue(string[] characterDialogueLines)
     {
+        itemDialogueIndicator.SetActive(true);
         StartDialogue(characterDialogueLines);
     }
 
