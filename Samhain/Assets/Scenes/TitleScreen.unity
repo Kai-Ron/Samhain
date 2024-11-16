@@ -1654,7 +1654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1411128581
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2025,13 +2025,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Explore the same space in two different realms
-
-    and free the stubborn
-    spirits who are haunting your new home!
-
-
-    CONTROLS:'
+  m_text: "Explore the same space in two different realms\nand free the stubborn
+    spirits who are haunting your new home!\n\nCONTROLS: WASD for movement\n          
+    Left-Click to interact\n                      E- Shift to the space between"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2242feebfd1fbb748919a336dd3405c0, type: 2}
   m_sharedMaterial: {fileID: 8476662930099428547, guid: 2242feebfd1fbb748919a336dd3405c0, type: 2}
