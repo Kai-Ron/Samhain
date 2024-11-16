@@ -49,7 +49,7 @@ public class Dialogue : MonoBehaviour
 
     void Update()
     {
-        if (isTalking && Input.GetKeyDown(KeyCode.Space))
+        if (isTalking && Input.GetMouseButtonDown(0)/*GetKeyDown(KeyCode.Space)*/)
         {
             if (typingCoroutine == null) // If typing is done, show the next line
             {
