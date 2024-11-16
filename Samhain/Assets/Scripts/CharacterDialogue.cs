@@ -23,14 +23,25 @@ public class CharacterDialogue : Interactable
     private int incorrectGuesses;
     public int hintThreshold;
 
+    private Transform playerTransform;
+
+    private void Start()
+    {
+        playerTransform = GameObject.FindWithTag("Player").transform;
+    }
+
     public override void Use()
     {
+        Vector3 dir = playerTransform.position - transform.position;
+        dir.y = 0;
+        transform.rotation = Quaternion.LookRotation(dir);
+
         if (!correctlyGuessed)
         {
             InputManager.instance.currentName = characterName;
             InputManager.instance.currentCharacter = GetComponent<CharacterDialogue>();
             InputManager.instance.ActivateInputField();
-            if (incorrectGuesses >= hintThreshold)
+            if (incorrectGuesses >= hintThreshold && hintThreshold != 0)
             {
                 string[] singleListItem = new string[1];
                 if (Mathf.Abs(hintThreshold - incorrectGuesses) > hintDialogueLines.Length - 1)
@@ -70,6 +81,5 @@ public class CharacterDialogue : Interactable
     {
         incorrectGuesses += 1;
         Dialogue.instance.TriggerDialogue(newDialogueLines);
-   
     }
 }
