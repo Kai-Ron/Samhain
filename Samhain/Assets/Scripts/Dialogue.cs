@@ -133,7 +133,7 @@ public class Dialogue : MonoBehaviour
 
     public void TriggerItemDialogue(string[] characterDialogueLines)
     {
-       // itemDialogueIndicator.SetActive(true);
+        itemDialogueIndicator.SetActive(true);
         StartDialogue(characterDialogueLines);
     }
 
