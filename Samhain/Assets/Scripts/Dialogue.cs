@@ -89,6 +89,12 @@ public class Dialogue : MonoBehaviour
                 StopCoroutine(typingCoroutine);
             }
 
+            if(currentDialogueLines[currentLineIndex] == null || currentDialogueLines[currentLineIndex] == "")
+            {
+                EndDialogue();
+                return;
+            }
+
             dialogueText.text = currentDialogueLines[currentLineIndex];
             dialogueText.maxVisibleCharacters = 0; 
             typingCoroutine = StartCoroutine(RevealCharacters());

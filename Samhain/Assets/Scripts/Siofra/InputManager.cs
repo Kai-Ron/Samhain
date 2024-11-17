@@ -43,6 +43,14 @@ public class InputManager : MonoBehaviour
         inputFieldObject.SetActive(true);
     }
 
+    public void Interaction()
+    {
+        Debug.Log("Interaction");
+        currentState = INPUT_STATE.TYPING;
+        playerScript.currentState = PlayerController.STATE.TYPING;
+        //inputFieldObject.SetActive(true);
+    }
+
     public void FinishedTyping()
     {
         currentState = INPUT_STATE.NOT_TYPING;
