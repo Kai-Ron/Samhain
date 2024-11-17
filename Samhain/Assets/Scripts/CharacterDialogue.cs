@@ -1,7 +1,11 @@
 using UnityEngine;
+using System;
 
 public class CharacterDialogue : Interactable
 {
+    [TextArea(3, 10)]
+    public string[] interactionLines;
+    
     [TextArea(3, 10)]
     public string[] characterDialogueLines;  // Holds unique lines for each character
 
@@ -15,19 +19,35 @@ public class CharacterDialogue : Interactable
     public string[] completeDialogueLines;  // Holds unique lines for each character
 
     [TextArea(3, 10)]
-    public string[] hintDialogueLines;  // Holds unique lines for each character
+    public string[] hint0;
+
+    [TextArea(3, 10)]
+    public string[] hint1;
+
+    [TextArea(3, 10)]
+    public string[] hint2;
+
+    [TextArea(3, 10)]
+    public string[][] hintDialogueLines;  // Holds unique lines for each character
+
+    [TextArea(3, 10)]
+    string[] singleListItem = new string[8];
 
     public string characterName;
 
     public bool correctlyGuessed;
     private int incorrectGuesses;
-    public int hintThreshold;
+    private int interaction = 0;
+    public int hintThreshold = 3;
 
     private Transform playerTransform;
 
     private void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
+        /*hintDialogueLines[0] = hint0;
+        hintDialogueLines[1] = hint1;
+        hintDialogueLines[2] = hint2;*/
     }
 
     public override void Use()
@@ -40,21 +60,18 @@ public class CharacterDialogue : Interactable
         {
             InputManager.instance.currentName = characterName;
             InputManager.instance.currentCharacter = GetComponent<CharacterDialogue>();
-            InputManager.instance.ActivateInputField();
-            if (incorrectGuesses >= hintThreshold && hintThreshold != 0)
+
+            if(interaction == 0)
             {
-                string[] singleListItem = new string[1];
-                if (Mathf.Abs(hintThreshold - incorrectGuesses) > hintDialogueLines.Length - 1)
-                {
-                    singleListItem[0] = hintDialogueLines[hintDialogueLines.Length - 1];
-                    Dialogue.instance.TriggerDialogue(singleListItem);
-                    return;
-                }
-                singleListItem[0] = hintDialogueLines[Mathf.Abs(hintThreshold - incorrectGuesses)];
-                Dialogue.instance.TriggerDialogue(singleListItem);
-                return;
+                InputManager.instance.Interaction();
+                Dialogue.instance.TriggerDialogue(characterDialogueLines);
+                interaction++;
             }
-            Dialogue.instance.TriggerDialogue(characterDialogueLines);
+            else
+            {
+                InputManager.instance.ActivateInputField();
+                Dialogue.instance.TriggerDialogue(interactionLines);
+            }
         }
         else
         {
@@ -79,7 +96,46 @@ public class CharacterDialogue : Interactable
 
     public void IncorrectName(string[] newDialogueLines)
     {
-        incorrectGuesses += 1;
-        Dialogue.instance.TriggerDialogue(newDialogueLines);
+        int hint = 0;
+
+        for(int i = 0; i < incorrectDialogueLines.Length; i++)
+        {
+            singleListItem[hint] = incorrectDialogueLines[i];
+            hint++;
+        }
+
+        if(incorrectGuesses > 0)
+        {
+            for(int i = 0; i < hint0.Length; i++)
+            {
+                singleListItem[hint] = hint0[i];
+                hint++;
+            }
+        }
+
+        if(incorrectGuesses > 1)
+        {
+            for(int i = 0; i < hint1.Length; i++)
+            {
+                singleListItem[hint] = hint1[i];
+                hint++;
+            }
+        }
+
+        if(incorrectGuesses > 2)
+        {
+            for(int i = 0; i < hint2.Length; i++)
+            {
+                singleListItem[hint] = hint2[i];
+                hint++;
+            }
+        }
+        
+        if(incorrectGuesses < hintThreshold)
+        {
+            incorrectGuesses += 1;
+        }
+
+        Dialogue.instance.TriggerDialogue(singleListItem);
     }
 }
