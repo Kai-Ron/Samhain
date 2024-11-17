@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Dialogue : MonoBehaviour
 {
@@ -145,6 +146,11 @@ public class Dialogue : MonoBehaviour
 
     public void UpdateProgressUI()
     {
-        progressUIText.text = NamesSolved.ToString();
+        progressUIText.text = NamesSolved.ToString() + " / 7";
+
+        if(NamesSolved >= 7)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

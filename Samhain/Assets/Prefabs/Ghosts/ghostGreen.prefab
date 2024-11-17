@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5004091961126793013}
   m_Layer: 0
   m_Name: ghostGreen
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   - "Hahahaha, I didn\u2019t think anyone would look out here! "
   - But you found me! And no, being outside is not cheating!
   - "I was looking for my Poppy! But I couldn\u2019t find her at all out here. "
-  - "Hmm... Ross always thinks he can take what\u2019s mine since he was younger,
+  - "Hmm... Ross always thinks he can take what\u2019s mine since he is younger,
     so maybe he knows? "
   - 'I also can''t remember my name. Could you help me find it? '
   - 'It might be written down somewhere inside. '

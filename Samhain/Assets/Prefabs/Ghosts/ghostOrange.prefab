@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 3732690571988656375}
   m_Layer: 0
   m_Name: ghostOrange
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
   hint2:
   - 'My parents were quite proud of my pursuits as a young scientist! '
   - They were incredibly sentimental, and kept my awards around the place.
-  characterName: Aksel Bottomley
+  characterName: Askel Bottomley
   correctlyGuessed: 0
   hintThreshold: 3
 --- !u!1 &6065719918713201882

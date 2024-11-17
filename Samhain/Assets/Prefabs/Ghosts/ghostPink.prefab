@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 3670792893357176743}
   m_Layer: 0
   m_Name: ghostPink
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
   hint1:
   - 'My parents commissioned a sketch of my playroom when I was young. '
   - "But I see that sketch on the wall over there indicates this has been a study
-    since the 1950\u2019s... "
+    since the 2020\u2019s... "
   hint2:
   - "If only there were more clues from the time I lived here during the 1920\u2019s... "
   characterName: Josephine Ripley

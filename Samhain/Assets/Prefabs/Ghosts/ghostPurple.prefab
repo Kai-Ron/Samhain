@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 1455367150440485717}
   m_Layer: 0
   m_Name: ghostPurple
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,10 +477,10 @@ MonoBehaviour:
   - 'I''ve got to etch you into the pages of history. '
   hint0:
   - ~ Miles and miles of rooftops ~
-  - '~ Grey, big and unrelenting '
+  - ~ Grey, big and unrelenting ~
   hint1:
   - ~ My life is like a rooftop ~
-  - '~ It goes on forever and ever '
+  - ~ It goes on forever and ever ~
   hint2:
   - "That\u2019s the chorus of one of my songs. Do you like it?"
   - "It\u2019s called Rooftops. You should give it a listen. "
